@@ -34,9 +34,6 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if (Test-Path "$env:GITHUB_WORKSPACE\next.config.js") {
-            Rename-Item "$env:GITHUB_WORKSPACE\next.config.js" "$env:GITHUB_WORKSPACE\next.config.cjs"
-          }
           if (Test-Path "$env:GITHUB_WORKSPACE\yarn.lock") {
               echo "manager=yarn" >> $env:GITHUB_OUTPUT
               echo "command=install" >> $env:GITHUB_OUTPUT
@@ -88,7 +85,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     steps:
       - name: Deploy to GitHub Pages
