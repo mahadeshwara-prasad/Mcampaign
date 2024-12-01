@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "mocha",
-    "dev": "next dev"
+    "dev": "next dev",
+    "build": "next build"
   },
   "keywords": [],
   "author": "",
