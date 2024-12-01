@@ -34,6 +34,13 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
+          if (Test-Path $nextConfigPath) {
+            $content = Get-Content $nextConfigPath
+            if ($content -notmatch "export default") {
+              $content = "export default {\n" + $content + "\n};"
+              Set-Content $nextConfigPath $content
+            }
+          }
           if (Test-Path "$env:GITHUB_WORKSPACE\yarn.lock") {
               echo "manager=yarn" >> $env:GITHUB_OUTPUT
               echo "command=install" >> $env:GITHUB_OUTPUT
@@ -73,6 +80,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Audit dependencies
+        run: npm audit fix --force
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
