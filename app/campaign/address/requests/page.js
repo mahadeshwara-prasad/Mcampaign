@@ -5,6 +5,7 @@ import Table from "./(Components)/Table";
 import Contribute from "../(Components)/Contribute";
 import { useRouter } from 'next/navigation';
 
+export const dynamic = "force-dynamic";
 
 export default function Page({searchParams}){
 

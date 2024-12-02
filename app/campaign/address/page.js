@@ -6,6 +6,9 @@ import 'semantic-ui-css/semantic.min.css';
 import Contribute from "./(Components)/Contribute";
 import { useRouter } from 'next/navigation';
 
+
+export const dynamic = "force-dynamic";
+
 export default function Page({ searchParams }){
     const [summary,setSummary] = useState({});
     const [error,setError] = useState("");
