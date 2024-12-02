@@ -1,4 +1,5 @@
 Decentralized CrowdFunding Project.
-Connect to sapolia network.
+
+Connect to sepolia network.
 
 Demo: https://mcampaign.vercel.app/
