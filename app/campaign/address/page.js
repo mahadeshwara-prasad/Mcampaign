@@ -6,7 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import Contribute from "./(Components)/Contribute";
 import { useRouter } from 'next/navigation';
 
-export default function Page({ params }){
+export default function Page({ searchParams }){
     const [summary,setSummary] = useState({});
     const [error,setError] = useState("");
     const router = useRouter();
@@ -14,7 +14,7 @@ export default function Page({ params }){
     useEffect(()=>{
        async function createCampaign(){
             try{
-                const newCampaign = await campaign(params.address);
+                const newCampaign = await campaign(searchParams.address);
                 const getSummary = await newCampaign.getSummary();
                 setSummary(getSummary);
                 console.log(getSummary);
@@ -29,7 +29,7 @@ export default function Page({ params }){
 
     return (
     <Suspense>
-        <h2 style={{paddingBottom:"30px"}}>Campaign: {params.address}</h2>
+        <h2 style={{paddingBottom:"30px"}}>Campaign: {searchParams.address}</h2>
         {error?
         <div className="ui error message">
             <div className="header">
@@ -46,13 +46,12 @@ export default function Page({ params }){
             <div className="ui grid" style={{paddingBottom:"20px"}}>        
                 <div className="twelve wide column">
                     <Card details={summary}></Card>
-                    
                 </div>
                 <div className="four wide column">
-                    <Contribute setsummary = {setSummary} summary={summary} address={params.address}></Contribute>
+                    <Contribute setsummary = {setSummary} summary={summary} address={searchParams.address}></Contribute>
                 </div>
             </div>
-            <button className="large ui teal button" onClick={()=>{router.push(`/campaign/${params.address}/requests`)}}>
+            <button className="large ui teal button" onClick={()=>{router.push(`/campaign/address/requests?address=${searchParams.address}`)}}>
                     View Requests
             </button>
         </div>}

@@ -6,7 +6,7 @@ import Contribute from "../(Components)/Contribute";
 import { useRouter } from 'next/navigation';
 
 
-export default function Page({params}){
+export default function Page({searchParams}){
 
     const [request,setRequest] = useState([]);
     const [rCount,setRcount]=useState("");
@@ -18,7 +18,7 @@ export default function Page({params}){
     useEffect(()=>{
         async function requestDetails(){
             try{
-                const newCampaign = await campaign(params.address);
+                const newCampaign = await campaign(searchParams.address);
                 const requestCount = await newCampaign.getRequestsCount();
                 setRcount(requestCount);
                 const approversCount = await newCampaign.approversCount();
@@ -59,7 +59,7 @@ export default function Page({params}){
         
         const det = req.map((value,index)=>{
             return(
-                <Table key={index} request={value} setrequest={setRequest} address={params.address}></Table>
+                <Table key={index} request={value} setrequest={setRequest} address={searchParams.address}></Table>
             );
         });
         return det;
@@ -101,11 +101,11 @@ export default function Page({params}){
                 </table>
             </div>
             <div className="four wide column">
-                <Contribute setsummary={setSummary} summary={summary} address={params.address}></Contribute>
+                <Contribute setsummary={setSummary} summary={summary} address={searchParams.address}></Contribute>
             </div>
         </div> 
 
-        <button className="large ui teal button" onClick={()=>{router.push(`/campaign/${params.address}/new-request`)}}>
+        <button className="large ui teal button" onClick={()=>{router.push(`/campaign/address/new-request?address=${searchParams.address}`)}}>
             Create New Request
         </button> 
         </div>    

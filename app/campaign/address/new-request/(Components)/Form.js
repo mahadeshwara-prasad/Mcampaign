@@ -24,7 +24,7 @@ export default function Form({address}){
             setState("");
             setMtype("green");
             setMessage("Request successfully submitted");
-            router.push(`/campaign/${address}/requests`);
+            router.push(`/campaign/address/requests?address=${address}`);
         }catch(err){
             console.log(err);
             setMtype("red");
